@@ -1,0 +1,40 @@
+- name: Install server and configure it
+  hosts: all
+  become: true
+  roles:
+    - role: fail2ban
+
+    - role: geerlingguy.ntp
+      vars:
+        ntp_enabled: true
+        ntp_timezone: Europe/Zurich
+        ntp_area: 'ch'
+
+    - role: geerlingguy.firewall
+      vars:
+        firewall_allowed_tcp_ports:
+          - '22' # SSH
+          - '9100' # node_exporter
+
+    - role: deploy_ic_it_ssh_keys
+
+    - role: geerlingguy.node_exporter
+      vars:
+        node_exporter_host: '0.0.0.0'
+        node_exporter_port: 9100
+
+  tasks:
+    - name: Ensure that the required packages to mount an nfs volume are installed
+      ansible.builtin.apt:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - nfs-common
+
+    - name: 'Mount the nfs volume'
+      ansible.posix.mount:
+        path: /mnt/u12632_cdh_dhlab_002_files_nfs
+        src: 'cdh1files.epfl.ch:/u12632_cdh_dhlab_002_files_nfs'
+        fstype: nfs
+        opts: defaults
+        state: mounted

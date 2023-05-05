@@ -1,0 +1,4 @@
+{
+  "ansible.python.interpreterPath": "/Users/jaep/code/ic/dhlab/servers_deployments/cdhvm0030.xaas.epfl.ch/venv/bin/python",
+  "ansible.python.activationScript": "/Users/jaep/code/ic/dhlab/servers_deployments/cdhvm0030.xaas.epfl.ch/venv/bin/activate"
+}

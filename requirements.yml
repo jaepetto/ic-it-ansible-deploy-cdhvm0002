@@ -1,0 +1,11 @@
+- src: https://github.com/jaepetto/ic_it.install_fail2ban.git
+  scm: git
+  version: main
+  name: fail2ban
+- geerlingguy.ntp
+- geerlingguy.firewall
+- src: https://github.com/EPFL-IC/ic_it.deploy_ic_it_ssh_keys.git
+  scm: git
+  version: main
+  name: deploy_ic_it_ssh_keys
+- geerlingguy.node_exporter
